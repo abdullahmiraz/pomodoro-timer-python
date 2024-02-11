@@ -1,7 +1,19 @@
+import os
+import sys
 import tkinter as tk
 from tkinter import ttk
 import pygame
-import os
+
+if getattr(sys, "frozen", False):
+    # If the application is frozen (e.g., PyInstaller), use this path
+    app_path = sys._MEIPASS
+else:
+    # If running in a script, use the current directory
+    app_path = os.path.dirname(os.path.abspath(__file__))
+
+# Set the icon for the application
+icon_path = os.path.join(app_path, "timer.ico")
+
 
 class PomodoroApp:
     def __init__(self, root):
@@ -9,8 +21,12 @@ class PomodoroApp:
         self.root.title("Pomodoro Timer")
 
         # Double the width of the window
-        new_width = self.root.winfo_screenwidth() * 1 // 3  # Set to 2/3 of the screen width
-        new_height = self.root.winfo_screenheight() * 1 // 2  # Keep the height unchanged
+        new_width = (
+            self.root.winfo_screenwidth() * 1 // 3
+        )  # Set to 2/3 of the screen width
+        new_height = (
+            self.root.winfo_screenheight() * 1 // 2
+        )  # Keep the height unchanged
 
         self.root.geometry(f"{new_width}x{new_height}")
 
@@ -53,7 +69,9 @@ class PomodoroApp:
 
         # Create Stop Alarm button
         self.stop_alarm_button = ttk.Button(
-            root, text="Stop Alarm", command=self.stop_alarm,
+            root,
+            text="Stop Alarm",
+            command=self.stop_alarm,
         )
         self.stop_alarm_button.pack(pady=5)
 
